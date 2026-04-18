@@ -63,19 +63,6 @@ export default function TradeLoggingPage() {
           <div className="page-pill">Discipline-first logging</div>
         </div>
       </div>
-        <div style={{
-          width: '42px', height: '42px', borderRadius: '11px', flexShrink: 0,
-          background: 'linear-gradient(135deg,rgba(0,208,132,0.18),rgba(0,208,132,0.04))',
-          border: '1px solid rgba(0,208,132,0.3)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>
-          <BookOpen size={20} color="var(--accent-green)" strokeWidth={1.8} />
-        </div>
-        <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '26px', fontWeight: 800, lineHeight: 1.1 }}>Log Trade</h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '3px' }}>Discipline tracking and performance analysis</p>
-        </div>
-      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
