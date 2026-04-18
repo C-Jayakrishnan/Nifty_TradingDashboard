@@ -10,11 +10,11 @@ import DeveloperPage from './pages/DeveloperPage'
 import { Target, BarChart2, BookOpen, TrendingUp, Wrench, LogOut, ChevronUp, CheckCircle, AlertCircle } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { id: 'welcome', Icon: Target,    label: 'Edge'      },
-  { id: 'detect',  Icon: BarChart2, label: 'Browse'    },
-  { id: 'log',     Icon: BookOpen,  label: 'Log Trade' },
-  { id: 'insight', Icon: TrendingUp,label: 'Insights'  },
-  { id: 'dev',     Icon: Wrench,    label: 'Dev'       },
+  { id: 'welcome', Icon: Target,    label: 'Edge'    },
+  { id: 'detect',  Icon: BarChart2, label: 'Browse'  },
+  { id: 'log',     Icon: BookOpen,  label: 'Journal' },
+  { id: 'insight', Icon: TrendingUp,label: 'Insights'},
+  { id: 'dev',     Icon: Wrench,    label: 'Dev'     },
 ]
 
 function Layout() {
@@ -68,17 +68,7 @@ function Layout() {
           {NAV_ITEMS.map(({ id, Icon, label }) => {
             const active = page === id
             return (
-              <button key={id} onClick={() => setPage(id)} style={{
-                display: 'flex', alignItems: 'center', gap: '10px',
-                padding: '10px 12px', borderRadius: 'var(--radius-md)',
-                background: active ? 'var(--bg-card)' : 'transparent',
-                border: 'none', cursor: 'pointer',
-                color: active ? 'var(--accent-green)' : 'var(--text-secondary)',
-                fontSize: '13px', fontFamily: 'var(--font-mono)', fontWeight: 600,
-                transition: 'all var(--transition)',
-                textAlign: 'left', width: '100%',
-                borderLeft: `2px solid ${active ? 'var(--accent-green)' : 'transparent'}`,
-              }}>
+              <button key={id} onClick={() => setPage(id)} className={`sidebar-button ${active ? 'active' : ''}`}>
                 <Icon size={16} strokeWidth={active ? 2.5 : 1.8} />
                 {label}
                 {id === 'dev' && (
