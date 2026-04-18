@@ -64,71 +64,69 @@ export default function InsightPage() {
   }
 
   return (
-    <div style={{ maxWidth: '900px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
+    <div className="page-shell" style={{ maxWidth: '980px' }}>
+      <div className="page-header">
         <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 800, marginBottom: '6px' }}>
-            📊 Trade Insights
-          </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-            {trades.length} trades logged · {closedTrades.length} closed
-          </p>
+          <div className="page-eyebrow">Insights</div>
+          <h1 className="page-title">Trade Performance Intelligence</h1>
+          <p className="page-intro">Review your logged trades with equity curves, win-rate analytics, and performance breakdowns designed for active traders.</p>
         </div>
-        {!confirmClear ? (
-          <button className="btn btn-danger" onClick={() => setConfirmClear(true)}>🗑️ Clear All</button>
-        ) : (
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <button className="btn btn-danger" onClick={() => { clearAllTrades(); setConfirmClear(false) }}>Confirm Delete</button>
-            <button className="btn btn-ghost" onClick={() => setConfirmClear(false)}>Cancel</button>
+        <div className="page-meta">
+          <div className="page-pill">{trades.length} trades logged</div>
+          <div className="page-panel" style={{ padding: '18px 20px' }}>
+            <div className="page-section-title">
+              <h2>Overview</h2>
+              <span>Snapshot</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '10px' }}>
+              <div className="stat-card" style={{ padding: '10px', borderRadius: '16px', background: 'rgba(255,255,255,0.04)' }}>
+                <div className="stat-label">Closed Trades</div>
+                <div className="stat-value">{closedTrades.length}</div>
+              </div>
+              <div className="stat-card" style={{ padding: '10px', borderRadius: '16px', background: 'rgba(255,255,255,0.04)' }}>
+                <div className="stat-label">Win Rate</div>
+                <div className="stat-value">{fmtPct(winRate)}</div>
+              </div>
+            </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* KPI tiles */}
       <div className="grid-5" style={{ marginBottom: '20px' }}>
-        <StatTile label="Total P&L" value={`₹${fmtNum(totalPnL, 0)}`}
-          color={totalPnL >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'} />
-        <StatTile label="Win Rate" value={fmtPct(winRate)}
-          color={winRate > 0.5 ? 'var(--accent-green)' : 'var(--accent-red)'} />
-        <StatTile label="Profit Factor" value={profitFactor ? fmtNum(profitFactor, 2) : '—'}
-          color={profitFactor > 1.5 ? 'var(--accent-green)' : 'var(--text-primary)'} />
+        <StatTile label="Total P&L" value={`₹${fmtNum(totalPnL, 0)}`} color={totalPnL >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'} />
+        <StatTile label="Win Rate" value={fmtPct(winRate)} color={winRate > 0.5 ? 'var(--accent-green)' : 'var(--accent-red)'} />
+        <StatTile label="Profit Factor" value={profitFactor ? fmtNum(profitFactor, 2) : '—'} color={profitFactor > 1.5 ? 'var(--accent-green)' : 'var(--text-primary)'} />
         <StatTile label="Avg Risk" value={`₹${fmtNum(avgRisk, 0)}`} />
-        <StatTile label="Discipline 🎯" value={fmtPct(discipline)}
-          color={discipline > 0.8 ? 'var(--accent-green)' : discipline > 0.5 ? 'var(--accent-gold)' : 'var(--accent-red)'}
-          sub={`${trades.filter(t => t.pre_trade_data_flag === 'Yes').length}/${trades.length} pre-planned`} />
+        <StatTile label="Discipline 🎯" value={fmtPct(discipline)} color={discipline > 0.8 ? 'var(--accent-green)' : discipline > 0.5 ? 'var(--accent-gold)' : 'var(--accent-red)'} sub={`${trades.filter(t => t.pre_trade_data_flag === 'Yes').length}/${trades.length} pre-planned`} />
       </div>
 
       {closedTrades.length > 0 && (
         <>
-          {/* Equity Curve */}
-          <div className="card" style={{ padding: '20px', marginBottom: '16px' }}>
-            <div className="section-title" style={{ marginBottom: '14px' }}>Equity Curve</div>
-            <div style={{ height: '200px' }}>
+          <div className="card page-panel" style={{ padding: '22px', marginBottom: '16px' }}>
+            <div className="page-section-title"><h2>Equity Curve</h2><span>Performance trajectory</span></div>
+            <div style={{ height: '220px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={equityCurve} margin={{ top: 0, right: 10, left: -15, bottom: 0 }}>
-                  <XAxis dataKey="date" tick={{ fill: '#8899aa', fontSize: 10, fontFamily: 'JetBrains Mono' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: '#8899aa', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10, fontFamily: 'JetBrains Mono' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <ReferenceLine y={0} stroke="var(--border-emphasis)" strokeDasharray="3 3" />
-                  <Line type="monotone" dataKey="cum" stroke="var(--accent-green)" strokeWidth={2}
-                    dot={{ fill: 'var(--accent-green)', r: 3 }} name="Cumulative P&L"
-                    style={{ filter: 'drop-shadow(0 0 4px var(--accent-green))' }} />
+                  <Line type="monotone" dataKey="cum" stroke="var(--accent-green)" strokeWidth={2} dot={{ fill: 'var(--accent-green)', r: 3 }} name="Cumulative P&L" style={{ filter: 'drop-shadow(0 0 4px var(--accent-green))' }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </div>
 
-          {/* Per-trade P&L bars */}
-          <div className="card" style={{ padding: '20px', marginBottom: '16px' }}>
-            <div className="section-title" style={{ marginBottom: '14px' }}>Trade P&L</div>
-            <div style={{ height: '160px' }}>
+          <div className="card page-panel" style={{ padding: '22px', marginBottom: '16px' }}>
+            <div className="page-section-title"><h2>Trade P&L</h2><span>Per-trade performance</span></div>
+            <div style={{ height: '180px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={equityCurve} margin={{ top: 0, right: 10, left: -15, bottom: 0 }}>
-                  <XAxis dataKey="date" tick={{ fill: '#8899aa', fontSize: 10 }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: '#8899aa', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
                   <Tooltip content={<CustomTooltip />} />
                   <ReferenceLine y={0} stroke="var(--border-emphasis)" />
-                  <Bar dataKey="pnl" name="P&L" radius={[3, 3, 0, 0]}>
+                  <Bar dataKey="pnl" name="P&L" radius={[4, 4, 0, 0]}>
                     {equityCurve.map((e, i) => (
                       <Cell key={i} fill={e.pnl >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'} />
                     ))}
@@ -140,9 +138,8 @@ export default function InsightPage() {
         </>
       )}
 
-      {/* Trade table */}
-      <div className="card" style={{ padding: '20px' }}>
-        <div className="section-title" style={{ marginBottom: '14px' }}>All Trades</div>
+      <div className="card page-panel" style={{ padding: '22px' }}>
+        <div className="page-section-title"><h2>All Trades</h2><span>Detailed history</span></div>
         <div className="table-wrap">
           <table>
             <thead>

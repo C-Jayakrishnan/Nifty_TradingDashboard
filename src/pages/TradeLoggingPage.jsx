@@ -48,13 +48,21 @@ export default function TradeLoggingPage() {
   const canSubmit = !!form.entry_price && !!form.stop_loss
 
   const Card = ({ children, style }) => (
-    <div className="card" style={{ padding: '20px 22px', ...style }}>{children}</div>
+    <div className="card page-panel" style={{ padding: '20px 22px', ...style }}>{children}</div>
   )
 
   return (
-    <div style={{ maxWidth: '580px' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '28px' }}>
+    <div className="page-shell" style={{ maxWidth: '620px' }}>
+      <div className="page-header" style={{ marginBottom: '16px' }}>
+        <div>
+          <div className="page-eyebrow">Trade Logging</div>
+          <h1 className="page-title">Log New Trades</h1>
+          <p className="page-intro">Capture trade details instantly and keep your performance journal aligned with your edge workflow.</p>
+        </div>
+        <div className="page-meta" style={{ alignItems: 'flex-end' }}>
+          <div className="page-pill">Discipline-first logging</div>
+        </div>
+      </div>
         <div style={{
           width: '42px', height: '42px', borderRadius: '11px', flexShrink: 0,
           background: 'linear-gradient(135deg,rgba(0,208,132,0.18),rgba(0,208,132,0.04))',

@@ -79,21 +79,29 @@ export default function WelcomePage({ stats }) {
     : signal === 'BEARISH' ? 'var(--accent-red)' : 'var(--accent-gold)'
 
   return (
-    <div style={{ maxWidth: '860px' }}>
+    <div className="page-shell" style={{ maxWidth: '860px' }}>
 
-      {/* Page header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '28px' }}>
-        <div style={{
-          width: '42px', height: '42px', borderRadius: '11px', flexShrink: 0,
-          background: 'linear-gradient(135deg,rgba(0,208,132,0.18),rgba(0,208,132,0.04))',
-          border: '1px solid rgba(0,208,132,0.3)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>
-          <Target size={20} color="var(--accent-green)" strokeWidth={1.8} />
-        </div>
+      <div className="page-header">
         <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '26px', fontWeight: 800, lineHeight: 1.1 }}>Edge Detection</h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '3px' }}>Enter previous day OHLC + today's open to compute statistical edges</p>
+          <div className="page-eyebrow">Edge Detection</div>
+          <h1 className="page-title">Realtime Edge Calculator</h1>
+          <p className="page-intro">Enter previous day OHLC + today's open to compute statistical edges and regime bias.</p>
+        </div>
+        <div className="page-meta">
+          <div className="page-pill">Live Model Active</div>
+          {stats && (
+            <div className="page-panel" style={{ padding: '14px 18px' }}>
+              <div className="page-section-title">
+                <h2>Analytics Ready</h2>
+                <span>Live sync</span>
+              </div>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <span className="badge badge-green">{stats.candle_state_stats?.length} candle</span>
+                <span className="badge badge-blue">{stats.open_context_stats?.length} open</span>
+                <span className="badge badge-red">{stats.gap_stats?.length} gap</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -105,7 +113,7 @@ export default function WelcomePage({ stats }) {
       )}
 
       {/* Input card */}
-      <div className="card" style={{ padding: '20px 22px', marginBottom: '16px' }}>
+      <div className="card page-panel" style={{ padding: '20px 22px', marginBottom: '16px' }}>
         <SectionHeading icon={Calculator}>Previous Day &amp; Today's Open</SectionHeading>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '14px' }}>
           {inputFields.map(({ label, key }) => (
@@ -150,7 +158,7 @@ export default function WelcomePage({ stats }) {
         <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
           {/* CPR Levels */}
-          <div className="card" style={{ padding: '20px 22px' }}>
+          <div className="card page-panel" style={{ padding: '20px 22px' }}>
             <SectionHeading icon={BarChart2}>CPR Levels</SectionHeading>
             <CPRDisplay pp={results.pp} tc={results.tc} bc={results.bc} />
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '12px' }}>
@@ -169,7 +177,7 @@ export default function WelcomePage({ stats }) {
 
           {/* Overall Signal */}
           {signal && (
-            <div className="card" style={{
+            <div className="card page-panel" style={{
               padding: '20px 22px',
               borderColor: signalColor + '44',
               boxShadow: `0 0 24px ${signalColor}11`,
@@ -203,7 +211,7 @@ export default function WelcomePage({ stats }) {
           )}
 
           {/* Candle Game */}
-          <div className="card" style={{ padding: '20px 22px' }}>
+          <div className="card page-panel" style={{ padding: '20px 22px' }}>
             <SectionHeading icon={Activity}>Candle Game</SectionHeading>
             <div style={{ marginBottom: '14px' }}>
               <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>State: </span>
@@ -237,7 +245,7 @@ export default function WelcomePage({ stats }) {
           </div>
 
           {/* Level Game */}
-          <div className="card" style={{ padding: '20px 22px' }}>
+          <div className="card page-panel" style={{ padding: '20px 22px' }}>
             <SectionHeading icon={Target}>Level Game</SectionHeading>
             {Object.keys(scenarioGroups).length > 0
               ? Object.entries(scenarioGroups).map(([name, outcomes]) => (
@@ -248,7 +256,7 @@ export default function WelcomePage({ stats }) {
           </div>
 
           {/* Gap Game */}
-          <div className="card" style={{ padding: '20px 22px' }}>
+          <div className="card page-panel" style={{ padding: '20px 22px' }}>
             <SectionHeading icon={BarChart2}>Gap Game</SectionHeading>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '14px' }}>
               <span className={`badge ${results.gap?.direction === 'Gap_Up' ? 'badge-green' : results.gap?.direction === 'Gap_Down' ? 'badge-red' : 'badge-muted'}`}>

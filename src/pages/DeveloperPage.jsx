@@ -167,17 +167,18 @@ export default function DeveloperPage() {
 
   // ─── Password gate ─────────────────────────────────────────────────────────
   if (!unlocked) return (
-    <div style={{ maxWidth: '400px' }}>
-      <div style={{ marginBottom: '28px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 800 }}>🛠️ Developer</h1>
-          <span className="badge badge-red">PROTECTED</span>
+    <div className="page-shell" style={{ maxWidth: '460px' }}>
+      <div className="page-header" style={{ marginBottom: '18px' }}>
+        <div>
+          <div className="page-eyebrow">Developer</div>
+          <h1 className="page-title">Secure Dataset Upload</h1>
+          <p className="page-intro">Unlock the backend uploader and sync curated backtest stats for your premium trading dashboard.</p>
         </div>
-        <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-          Upload backtest output CSVs to power the dashboard.<br />Enter the developer passphrase to continue.
-        </p>
+        <div className="page-meta" style={{ alignItems: 'flex-end' }}>
+          <div className="page-pill">Protected access</div>
+        </div>
       </div>
-      <div className="card" style={{ padding: '28px' }}>
+      <div className="card page-panel" style={{ padding: '28px' }}>
         <form onSubmit={handlePw} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div className="form-group">
             <label className="label">Developer Passphrase</label>
@@ -207,20 +208,19 @@ export default function DeveloperPage() {
 
   // ─── Unlocked UI ───────────────────────────────────────────────────────────
   return (
-    <div style={{ maxWidth: '680px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
+    <div className="page-shell" style={{ maxWidth: '720px' }}>
+      <div className="page-header" style={{ marginBottom: '18px' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 800 }}>🛠️ Developer</h1>
-            <span className="badge badge-green">UNLOCKED</span>
-          </div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-            Upload pre-computed backtest CSV outputs from your local Python run
-          </p>
+          <div className="page-eyebrow">Developer</div>
+          <h1 className="page-title">CSV Upload Console</h1>
+          <p className="page-intro">Use the uploader to sync your CSV backtest outputs with the dashboard’s statistical engine.</p>
         </div>
-        <button className="btn btn-ghost" onClick={() => setUnlocked(false)} style={{ fontSize: '12px' }}>
-          🔒 Lock
-        </button>
+        <div className="page-meta" style={{ alignItems: 'flex-end' }}>
+          <span className="page-pill">{stats ? 'Active dataset' : 'No dataset loaded'}</span>
+          <button className="btn btn-ghost" onClick={() => setUnlocked(false)} style={{ fontSize: '12px' }}>
+            🔒 Lock
+          </button>
+        </div>
       </div>
 
       {/* Active stats banner */}
@@ -244,8 +244,8 @@ export default function DeveloperPage() {
       )}
 
       {/* Workflow guide */}
-      <div className="card" style={{ padding: '18px 20px', marginBottom: '20px' }}>
-        <div className="section-title" style={{ marginBottom: '14px' }}>Workflow</div>
+      <div className="card page-panel" style={{ padding: '18px 20px', marginBottom: '20px' }}>
+        <div className="page-section-title" style={{ marginBottom: '14px' }}><h2>Workflow</h2><span>Upload steps</span></div>
         {[
           { n: '1', title: 'Run backtest_nifty.py on your machine', code: 'python backtest_nifty.py', desc: 'Generates 4 CSV files in the data/ folder' },
           { n: '2', title: 'Upload the 4 output CSVs below', code: null, desc: 'candle_state_stats · open_context_stats · gap_stats · level_game_stats' },
@@ -273,9 +273,10 @@ export default function DeveloperPage() {
       </div>
 
       {/* CSV Upload slots */}
-      <div className="card" style={{ padding: '18px 20px', marginBottom: '16px' }}>
-        <div className="section-title" style={{ marginBottom: '14px' }}>
-          Upload Files ({readyCount}/4 ready)
+      <div className="card page-panel" style={{ padding: '18px 20px', marginBottom: '16px' }}>
+        <div className="page-section-title" style={{ marginBottom: '14px' }}>
+          <h2>Upload Files</h2>
+          <span>{readyCount}/4 ready</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '18px' }}>
           <FileSlot icon="🕯️" label="candle_state_stats.csv" status={statuses.candle}
@@ -322,9 +323,9 @@ export default function DeveloperPage() {
 
       {/* Log */}
       {log.length > 0 && (
-        <div className="card" style={{ padding: '18px 20px' }}>
+        <div className="card page-panel" style={{ padding: '18px 20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <div className="section-title" style={{ flex: 1 }}>Log</div>
+            <div className="page-section-title" style={{ flex: 1 }}><h2>Log</h2></div>
             <button className="btn btn-ghost" style={{ padding: '3px 10px', fontSize: '11px' }} onClick={() => setLog([])}>Clear</button>
           </div>
           <div style={{
