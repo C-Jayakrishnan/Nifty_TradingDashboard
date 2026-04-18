@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { useStats } from '../hooks/useData'
 import Papa from 'papaparse'
 
-const DEV_PASSWORD = import.meta.env.VITE_DEV_PASSWORD || 'nifty-dev-2024'
+const DEV_PASSWORD = 'nifty-dev-2026'  // or your chosen passphrase
 
 function parseCandleStats(rows) {
   return rows.map(r => ({
