@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
-import { Target, Zap, Lock, Mail, ArrowRight } from 'lucide-react'
+import { Lock, Mail, ArrowRight } from 'lucide-react'
 
 export default function AuthPage() {
   const { signIn, signUp, signInWithGoogle } = useAuth()
@@ -26,16 +26,20 @@ export default function AuthPage() {
       <div style={{ width:'100%', maxWidth:400, position:'relative' }}>
         {/* Logo */}
         <div style={{ textAlign:'center', marginBottom:40 }}>
-          <div style={{
-            display:'inline-flex', alignItems:'center', justifyContent:'center',
-            width:60, height:60, borderRadius:16, marginBottom:20,
-            background:'linear-gradient(135deg,rgba(0,229,255,0.2),rgba(0,212,180,0.06))',
-            border:'1px solid rgba(0,229,255,0.3)',
-            boxShadow:'var(--cyan-glow-lg)',
-            animation:'float 3s ease-in-out infinite',
-          }}>
-            <Target size={28} color="var(--cyan)" strokeWidth={2} />
-          </div>
+          <img
+            src="/logo.png"
+            alt="NIFTY Edge"
+            style={{
+              width: 72, height: 72,
+              borderRadius: 18,
+              objectFit: 'cover',
+              objectPosition: 'center',
+              marginBottom: 20,
+              boxShadow: '0 0 32px rgba(0,229,255,0.3), 0 0 0 1px rgba(0,229,255,0.2)',
+              animation: 'float 3s ease-in-out infinite',
+              display: 'block', margin: '0 auto 20px',
+            }}
+          />
           <h1 style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:800, letterSpacing:'0.12em', marginBottom:8, color:'var(--text-primary)' }}>
             NIFTY EDGE
           </h1>

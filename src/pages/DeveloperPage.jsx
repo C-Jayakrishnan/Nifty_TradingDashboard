@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { useStats } from '../hooks/useData'
 import Papa from 'papaparse'
 
-const DEV_PASSWORD = 'nifty-dev-2026'  // or your chosen passphrase
+const DEV_PASSWORD = 'nifty-dev-2026'   // any passphrase
 
 function parseCandleStats(rows) {
   return rows.map(r => ({
@@ -75,7 +75,7 @@ function FileSlot({ icon, label, hint, status, onFile }) {
     <div
       onClick={() => ref.current?.click()}
       style={{
-        border: `1px dashed ${ok ? 'var(--accent-green)' : err ? 'var(--accent-red)' : 'var(--border-default)'}`,
+        border: `1px dashed ${ok ? 'var(--teal)' : err ? 'var(--red)' : 'var(--border-default)'}`,
         borderRadius: 'var(--radius-md)',
         background: ok ? 'var(--accent-green-dim)' : err ? 'var(--accent-red-dim)' : 'var(--bg-elevated)',
         padding: '14px 16px', cursor: 'pointer',
@@ -88,7 +88,7 @@ function FileSlot({ icon, label, hint, status, onFile }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
           fontSize: '13px', fontWeight: 600, marginBottom: '2px',
-          color: ok ? 'var(--accent-green)' : err ? 'var(--accent-red)' : 'var(--text-primary)'
+          color: ok ? 'var(--teal)' : err ? 'var(--red)' : 'var(--text-primary)'
         }}>
           {ok ? '✓ ' : err ? '✗ ' : ''}{label}
         </div>
@@ -96,8 +96,8 @@ function FileSlot({ icon, label, hint, status, onFile }) {
       </div>
       <div style={{
         width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
-        background: ok ? 'var(--accent-green)' : err ? 'var(--accent-red)' : 'var(--bg-card)',
-        border: `1px solid ${ok ? 'var(--accent-green)' : err ? 'var(--accent-red)' : 'var(--border-default)'}`,
+        background: ok ? 'var(--teal)' : err ? 'var(--red)' : 'var(--bg-card)',
+        border: `1px solid ${ok ? 'var(--teal)' : err ? 'var(--red)' : 'var(--border-default)'}`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: '14px', color: ok || err ? 'white' : 'var(--text-muted)',
       }}>
@@ -185,10 +185,10 @@ export default function DeveloperPage() {
               className="input" type="password" placeholder="••••••••••"
               value={pw} onChange={e => { setPw(e.target.value); setPwErr(false) }}
               autoFocus
-              style={{ borderColor: pwErr ? 'var(--accent-red)' : undefined }}
+              style={{ borderColor: pwErr ? 'var(--red)' : undefined }}
             />
             {pwErr && (
-              <div style={{ fontSize: '12px', color: 'var(--accent-red)', marginTop: '4px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--red)', marginTop: '4px' }}>
                 Incorrect passphrase.
               </div>
             )}
@@ -199,7 +199,7 @@ export default function DeveloperPage() {
           </button>
         </form>
         <p style={{ textAlign: 'center', marginTop: '16px', fontSize: '11px', color: 'var(--text-muted)' }}>
-          Default: <code style={{ color: 'var(--accent-gold)' }}>nifty-dev-2024</code> · Change via <code style={{ color: 'var(--accent-gold)' }}>VITE_DEV_PASSWORD</code>
+          Default: <code style={{ color: 'var(--amber)' }}>nifty-dev-2024</code> · Change via <code style={{ color: 'var(--amber)' }}>VITE_DEV_PASSWORD</code>
         </p>
       </div>
     </div>
@@ -259,13 +259,13 @@ export default function DeveloperPage() {
           }}>
             <div style={{
               width: '26px', height: '26px', borderRadius: '50%', flexShrink: 0,
-              background: 'var(--accent-green-dim)', border: '1px solid var(--accent-green)',
+              background: 'var(--accent-green-dim)', border: '1px solid var(--teal)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '12px', color: 'var(--accent-green)'
+              fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '12px', color: 'var(--teal)'
             }}>{n}</div>
             <div>
               <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>{title}</div>
-              {code && <code style={{ display: 'block', fontSize: '12px', color: 'var(--accent-gold)', background: 'var(--bg-void)', padding: '4px 8px', borderRadius: 'var(--radius-sm)', marginBottom: '4px' }}>{code}</code>}
+              {code && <code style={{ display: 'block', fontSize: '12px', color: 'var(--amber)', background: 'var(--bg-void)', padding: '4px 8px', borderRadius: 'var(--radius-sm)', marginBottom: '4px' }}>{code}</code>}
               <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{desc}</div>
             </div>
           </div>
@@ -335,7 +335,7 @@ export default function DeveloperPage() {
             {log.map(({ msg, type }, i) => (
               <div key={i} style={{
                 fontFamily: 'var(--font-mono)', fontSize: '12px', lineHeight: '1.7',
-                color: type === 'error' ? 'var(--accent-red)' : type === 'success' ? 'var(--accent-green)' : 'var(--text-secondary)'
+                color: type === 'error' ? 'var(--red)' : type === 'success' ? 'var(--teal)' : 'var(--text-secondary)'
               }}>{msg}</div>
             ))}
           </div>

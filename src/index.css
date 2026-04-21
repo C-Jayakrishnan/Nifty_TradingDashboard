@@ -425,6 +425,8 @@ select.input option { background: var(--bg-elevated); }
   min-height: 100vh;
   padding: 0;
   max-width: calc(100vw - 72px);
+  display: flex;
+  flex-direction: column;
 }
 @media (max-width: 768px) {
   .main-content { margin-left: 0; max-width: 100vw; padding-bottom: 80px; }
@@ -581,5 +583,30 @@ input[type=number] { -moz-appearance: textfield; }
 }
 
 /* ── Page layout ── */
-.page-wrap { padding: 24px 28px; max-width: 1000px; }
-@media (max-width: 768px) { .page-wrap { padding: 16px 14px; } }
+/* page-wrap is now handled inline in App.jsx */
+
+/* ── Logo image helper ── */
+.logo-img {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  object-fit: cover; object-position: center;
+  box-shadow: 0 0 18px rgba(0,229,255,0.25), 0 0 0 1px rgba(0,229,255,0.15);
+  display: block; flex-shrink: 0;
+}
+
+/* ── Responsive layout fixes ── */
+/* Prevent excessive whitespace on ultra-wide screens */
+.main-content > div[style] {
+  box-sizing: border-box;
+}
+
+/* On screens wider than 1300px widen the sidebar slightly */
+@media (min-width: 1300px) {
+  .sidebar { width: 80px; }
+  .main-content { margin-left: 80px; max-width: calc(100vw - 80px); }
+}
+
+/* Compact mobile padding */
+@media (max-width: 480px) {
+  .main-content > div { padding: 12px 12px 80px !important; }
+}

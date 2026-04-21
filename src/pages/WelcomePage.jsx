@@ -75,7 +75,7 @@ export default function WelcomePage({ stats }) {
       )}
 
       {/* ── Two-column layout on desktop ── */}
-      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:14 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(340px,1fr))', gap:14 }}>
 
         {/* LEFT: Market Snapshot inputs */}
         <div className="card" style={{ padding:'20px 22px', position:'relative' }}>
@@ -192,7 +192,7 @@ export default function WelcomePage({ stats }) {
 
       {/* ── Candle Game + Level Game side by side ── */}
       {results && (
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:14, marginTop:14 }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))', gap:14, marginTop:14 }}>
 
           {/* Candle Game */}
           <div className="card fade-in" style={{ padding:'20px 22px' }}>
@@ -250,7 +250,7 @@ export default function WelcomePage({ stats }) {
             <span className="badge badge-muted">{results.gap?.size?.toFixed(1)} pts</span>
             <span className="badge badge-muted">{gapRow.total_count} days sample</span>
           </div>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:14 }}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:14 }}>
             <div style={{ height:160 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={gapChartData} margin={{ top:0, right:0, left:-20, bottom:0 }}>
