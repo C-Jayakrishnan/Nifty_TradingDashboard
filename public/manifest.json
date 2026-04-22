@@ -1,0 +1,31 @@
+{
+  "name": "NIFTY Edge",
+  "short_name": "NiftyEdge",
+  "description": "Statistical Edge Detection for NIFTY 50 — CPR, Candle Game, Level Game, Gap Analysis",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#050810",
+  "theme_color": "#050810",
+  "categories": ["finance", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
