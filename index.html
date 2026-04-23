@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Primary Meta -->
+    <title>NIFTY Edge</title>
+    <meta name="description" content="Statistical Edge Detection for NIFTY 50 — CPR, Candle Game, Level Game, Gap Analysis" />
+    <meta name="theme-color" content="#050810" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+
+    <!-- Apple / iOS home screen icon -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="NIFTY Edge" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Fonts preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Critical inline CSS: prevents white flash before React + fonts load -->
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        background: #050810;
+        color: #e2eaf4;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Splash screen ── */
+      #splash {
+        position: fixed; inset: 0;
+        background: #050810;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 20px;
+        z-index: 9999;
+        opacity: 1; transition: opacity 0.5s ease;
+      }
+      #splash.fade-out { opacity: 0; pointer-events: none; }
+
+      /* Grid texture */
+      #splash::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(0,229,255,0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,229,255,0.02) 1px, transparent 1px);
+        background-size: 48px 48px;
+        pointer-events: none;
+      }
+      /* Ambient radial glow */
+      #splash::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse 70% 60% at 50% 42%, rgba(0,229,255,0.07) 0%, transparent 65%);
+        pointer-events: none;
+      }
+
+      #splash-content {
+        position: relative; z-index: 1;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 20px;
+      }
+
+      #splash-logo {
+        width: 100px; height: 100px;
+        border-radius: 24px;
+        object-fit: cover; object-position: center;
+        box-shadow:
+          0 0 0 1px rgba(0,229,255,0.2),
+          0 0 32px rgba(0,229,255,0.3),
+          0 0 72px rgba(0,229,255,0.12);
+        animation: splash-float 2.4s ease-in-out infinite;
+      }
+
+      #splash-wordmark {
+        text-align: center;
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      #splash-title {
+        font-family: 'Orbitron', 'Courier New', monospace;
+        font-size: 24px; font-weight: 900;
+        letter-spacing: 0.2em; color: #e2eaf4;
+        text-shadow: 0 0 24px rgba(0,229,255,0.45);
+      }
+      #splash-subtitle {
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+        font-size: 9px; font-weight: 500;
+        letter-spacing: 0.22em; text-transform: uppercase;
+        color: rgba(100,130,160,0.8);
+      }
+
+      #splash-loader {
+        display: flex; flex-direction: column; align-items: center; gap: 10px;
+      }
+      #splash-bar-track {
+        width: 140px; height: 2px;
+        background: rgba(0,229,255,0.1);
+        border-radius: 1px; overflow: hidden;
+      }
+      #splash-bar-fill {
+        height: 100%; width: 0%;
+        background: linear-gradient(90deg, #00d4b4, #00e5ff);
+        border-radius: 1px;
+        box-shadow: 0 0 8px rgba(0,229,255,0.6);
+        animation: splash-load 1.4s cubic-bezier(0.4,0,0.2,1) forwards;
+      }
+      #splash-status {
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+        font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+        color: rgba(0,229,255,0.5);
+        animation: splash-blink 1s ease infinite;
+      }
+
+      @keyframes splash-float {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(-7px); }
+      }
+      @keyframes splash-load {
+        0%   { width: 0%;   }
+        60%  { width: 75%;  }
+        100% { width: 100%; }
+      }
+      @keyframes splash-blink {
+        0%, 100% { opacity: 0.5; }
+        50%       { opacity: 1;   }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── Splash Screen (shown before React mounts) ── -->
+    <div id="splash">
+      <div id="splash-content">
+        <img id="splash-logo" src="/logo.png" alt="NIFTY Edge" />
+        <div id="splash-wordmark">
+          <div id="splash-title">NIFTY EDGE</div>
+          <div id="splash-subtitle">Statistical Edge Detection · NIFTY 50</div>
+        </div>
+        <div id="splash-loader">
+          <div id="splash-bar-track">
+            <div id="splash-bar-fill"></div>
+          </div>
+          <div id="splash-status">INITIALIZING</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── React root ── -->
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Dismiss splash after React's first paint -->
+    <script>
+      (function () {
+        var MIN_SHOW = 1400  // ms — ensures logo is seen even on fast connections
+        var start    = Date.now()
+        var splashEl = document.getElementById('splash')
+
+        function hideSplash() {
+          if (!splashEl) return
+          var elapsed = Date.now() - start
+          var delay   = Math.max(0, MIN_SHOW - elapsed)
+          setTimeout(function () {
+            splashEl.classList.add('fade-out')
+            setTimeout(function () {
+              if (splashEl && splashEl.parentNode) splashEl.parentNode.removeChild(splashEl)
+            }, 520)
+          }, delay)
+        }
+
+        // React signals readiness by dispatching this event from main.jsx
+        window.addEventListener('app-ready', hideSplash)
+
+        // Fallback: hide after 4s no matter what
+        setTimeout(hideSplash, 4000)
+      })()
+    </script>
+  </body>
+</html>
